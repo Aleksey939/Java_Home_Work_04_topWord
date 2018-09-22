@@ -16,7 +16,7 @@
 //
 //        Подсчет слов не должен учитывать регистр и знаки препинания
 //        Желательно использовать стримы при решении этой задачи
-
+package topWord;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -32,7 +32,7 @@ public class Main {
             String[] subStr = line.split("\\s");
             for (int i = 0; i < subStr.length; i++){
 
-                if (!subStr[i].equals("")&&!subStr[i].equals("-")) {
+                if (!subStr[i].equals(" ")&&!subStr[i].equals("-")) {
                     if(words.size()==0) {
                         words.add(new Word(subStr[i]));
                     }
@@ -52,7 +52,7 @@ public class Main {
 
         }
         Map map=new LinkedHashMap();
-        words.sort(new SortByCost());
+        words.sort(new SortBySize());
         for (Word word : words) {
            // System.out.println("Слово: %s Встречается: %d раз ", word.word, word.size);
             map.put(word.word,word.size);
@@ -61,29 +61,5 @@ public class Main {
         System.out.println(map);
     }
 }
-class Word{
-    public Word(String word) {
-        this.word = word;
-    }
-   String word;
-    public String getWord() {
-        return word;
-    }
-    public void setWord(String word) {
-        this.word = word;
-    }
-    public int getSize() {
-        return size;
-    }
-    public void setSize(int size) {
-        this.size = size;
-    }
-    int size=1;
-}
-class SortByCost implements Comparator<Word> {
-    public int compare(Word a, Word b) {
-        if ( a.size < b.size ) return 1;
-        else if ( a.size == b.size ) return 0;
-        else return -1;
-    }
-}
+
+
